@@ -1,4 +1,4 @@
-package gov.nysed.docker_tutorial;
+package gov.nysed.dockertutorial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
