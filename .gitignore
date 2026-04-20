@@ -7,6 +7,7 @@ build/
 src/main/resources/
 data/
 h2data/
+gradle/
 
 ### STS ###
 .apt_generated
