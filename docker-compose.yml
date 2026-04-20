@@ -12,7 +12,7 @@ services:
 
     ports:
       - "8080:8080" # Map host port 8080 to container port 8080
-      - "8000:8000" #
+      - "8000:8000" # port used for remote debugger
     develop:
       watch:
         - action: rebuild
