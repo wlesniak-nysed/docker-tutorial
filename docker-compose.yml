@@ -5,12 +5,18 @@ services:
     # Build the image using the Dockerfile in the current directory
     build:
       context: .
+      target: development
       dockerfile: Dockerfile
 
     container_name: docker-tutorial-app
 
     ports:
       - "8080:8080" # Map host port 8080 to container port 8080
+      - "8000:8000" #
+    develop:
+      watch:
+        - action: rebuild
+          path: .
 
     environment:
       # Override the H2 path to ensure it points to our mounted volume

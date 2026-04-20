@@ -31,7 +31,17 @@ FROM package AS extract
 WORKDIR /build
 RUN java -Djarmode=layertools -jar app.jar extract --destination extracted
 
-# Stage 5: Final runtime image
+# Stage 5: The "Debugger" version
+FROM extract as development
+WORKDIR /build
+RUN cp -r /build/extracted/dependencies/. ./
+RUN cp -r /build/extracted/spring-boot-loader/. ./
+RUN cp -r /build/extracted/snapshot-dependencies/. ./
+RUN cp -r /build/extracted/application/. ./
+ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+CMD ["java", "org.springframework.boot.loader.JarLauncher"]
+
+# Stage 6: Final runtime image
 FROM eclipse-temurin:8-jre-jammy
 WORKDIR /app
 
