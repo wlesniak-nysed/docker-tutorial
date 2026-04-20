@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 src/main/resources/
 data/
+h2data/
 
 ### STS ###
 .apt_generated
