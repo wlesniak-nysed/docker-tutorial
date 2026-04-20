@@ -2,6 +2,7 @@ HELP.md
 .gradle
 build/
 h2data/
+src/main/resources/static/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
