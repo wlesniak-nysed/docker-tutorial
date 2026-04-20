@@ -21,6 +21,8 @@ WORKDIR /build
 # Copy the compiled Vue files from Stage 1 into Spring's static resources
 COPY --from=frontend-build /frontend/dist ./src/main/resources/static
 COPY src/ ./src/
+# buildVue/copyVueToSpring steps are being skipped since they're already built in step 1;
+# (why not remove these steps then?) they're left in the build scripts for local builds
 RUN ./gradlew bootJar -x buildVue -x copyVueToSpring --no-daemon
 RUN cp build/libs/*.jar app.jar
 
