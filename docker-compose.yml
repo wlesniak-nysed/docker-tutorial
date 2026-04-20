@@ -20,11 +20,11 @@ services:
     volumes:
       # Persistence: This maps a local folder named 'h2data' on your computer
       # to the '/data' folder inside the container.
-      # This way, if the container is deleted, your data stays safe on your machine.
+      # This way, if the container is deleted, your data stays on your machine.
       - ./h2data:/data
 
     restart: unless-stopped
 
-# Optional: Define the volume explicitly if you don't want a bind mount
+# Define the volume explicitly instead of using a bind mount (bind mounts point to a specific file on your local machine)
 volumes:
   h2data:
