@@ -1,9 +1,15 @@
 HELP.md
 .gradle
 build/
+h2data/
+src/main/resources/static/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+src/main/resources/
+data/
+h2data/
+gradle/
 
 ### STS ###
 .apt_generated
@@ -35,3 +41,4 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/static/favicon.ico

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    # Build the image using the Dockerfile in the current directory
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+
+    container_name: docker-tutorial-app
+
+    ports:
+      - "8080:8080" # Map host port 8080 to container port 8080
+      - "8000:8000" # port used for remote debugger
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+
+    environment:
+      # Override the H2 path to ensure it points to our mounted volume
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/data/tutorialdb
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+    volumes:
+      # Persistence: This maps a local folder named 'h2data' on your computer
+      # to the '/data' folder inside the container.
+      # This way, if the container is deleted, your data stays on your machine.
+      - ./h2data:/data
+
+    restart: unless-stopped
+
+# Define the volume explicitly instead of using a bind mount (bind mounts point to a specific file on your local machine)
+volumes:
+  h2data:

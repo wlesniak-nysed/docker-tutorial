@@ -4,6 +4,7 @@ plugins {
 	id 'war'
     id 'org.springframework.boot' version '2.7.18'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "com.github.node-gradle.node" version "7.0.2"
 }
 
 group = 'gov.nysed'
@@ -28,3 +29,24 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+node {
+    download = true
+    version = '20.19.0'
+    workDir = file("${project.projectDir}/.gradle/nodejs")
+    nodeProjectDir = file("${project.projectDir}/frontend")
+}
+
+task buildVue(type: NpmTask) {
+    dependsOn npmInstall // Ensure node_modules exists first
+    args = ['run', 'build']
+}
+
+task copyVueToSpring(type: Copy) {
+    dependsOn buildVue
+    from "frontend/dist"
+    into "src/main/resources/static"
+}
+
+// Standard hook to include these in the main build lifecycle
+processResources.dependsOn copyVueToSpring
