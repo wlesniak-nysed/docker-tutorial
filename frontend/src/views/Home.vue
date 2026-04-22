@@ -28,14 +28,16 @@ async function getNames() {
 }
 </script>
 <template>
-  <div>
-    <label for="addItem">Add Name</label>
-    <input v-model="newName" type="text" @keyup.enter="addName"  />
-    <button type="button" @click="addName">+</button>
-  </div>
-  <div>
-    <ul>
-      <li v-for="name in nameList" :key="name.id">{{ name.name }}</li>
-    </ul>
+  <div class="main">
+    <div>
+      <label for="addItem">Add Name: </label>
+      <input v-model="newName" type="text" @keyup.enter="addName"  />
+      <button type="button" @click="addName">+</button>
+    </div>
+    <div>
+      <ul>
+        <li v-for="name in nameList" :key="name.id">{{ name.name }}</li>
+      </ul>
+    </div>
   </div>
 </template>
