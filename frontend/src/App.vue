@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 
 <template>
   <header>
-    uhhhhhhh
+    Yeah not a lot going on here, but it's just a sample project anyways
   </header>
 
   <main>
@@ -13,8 +13,10 @@ import Home from './views/Home.vue';
 </template>
 
 <style scoped>
+header {
+  margin: 0 auto 10rem;
+}
 main {
-  display: flex;
-  flex-flow: row wrap;
+  margin: 0 auto;
 }
 </style>
