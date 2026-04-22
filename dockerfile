@@ -42,7 +42,7 @@ ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,addr
 CMD ["java", "org.springframework.boot.loader.JarLauncher"]
 
 # Stage 6: Final runtime image
-FROM eclipse-temurin:8-jre-jammy
+FROM eclipse-temurin:8-jre-jammy AS final
 WORKDIR /app
 
 # Create a non-root user for security
