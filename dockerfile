@@ -32,7 +32,7 @@ WORKDIR /build
 RUN java -Djarmode=layertools -jar app.jar extract --destination extracted
 
 # Stage 5: Final runtime image
-FROM eclipse-temurin:8-jre-jammy
+FROM eclipse-temurin:8-jre-jammy AS final
 WORKDIR /app
 
 # Create a non-root user for security
