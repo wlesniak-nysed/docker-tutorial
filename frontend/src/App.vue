@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import Home from './views/Home.vue';
+import Header from './components/Header.vue';
 </script>
 
 <template>
   <header>
-    Yeah not a lot going on here, but it's just a sample project anyways
+    <Header />
   </header>
 
   <main>
@@ -12,6 +13,9 @@ import Home from './views/Home.vue';
   </main>
 </template>
 
+<style>
+@import url("https://eservices.nysed.gov/nysed-assets/stylesheets/4.x/nysed-bootstrap.css");
+</style>
 <style scoped>
 header {
   margin: 0 auto 10rem;
