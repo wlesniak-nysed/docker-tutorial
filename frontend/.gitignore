@@ -13,6 +13,7 @@ dist
 dist-ssr
 coverage
 *.local
+*.env
 
 # Editor directories and files
 .vscode/*
@@ -23,9 +24,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-
 *.tsbuildinfo
-
 .eslintcache
 
 # Cypress
