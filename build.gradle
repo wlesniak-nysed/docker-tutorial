@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'gov.nysed'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -37,16 +37,24 @@ node {
     nodeProjectDir = file("${project.projectDir}/frontend")
 }
 
-task buildVue(type: NpmTask) {
+tasks.register('buildVue', NpmTask) {
     dependsOn npmInstall // Ensure node_modules exists first
     args = ['run', 'build']
 }
 
-task copyVueToSpring(type: Copy) {
+tasks.register('copyVueToSpring', Copy) {
     dependsOn buildVue
     from "frontend/dist"
     into "src/main/resources/static"
 }
 
+tasks.register('writeVersionFile') {
+    outputs.file('frontend/.env')
+    doLast {
+        project.file('frontend/.env') << "VITE_APP_VERSION=${project.version}\nVITE_basecontext_dockertutorial=dockertutorial\n"
+    }
+}
+
 // Standard hook to include these in the main build lifecycle
+processResources.dependsOn writeVersionFile
 processResources.dependsOn copyVueToSpring
