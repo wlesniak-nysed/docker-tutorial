@@ -23,7 +23,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link mt-2" to="/">Take me home - except there are no other pages - so you've always been home</router-link>
+            <router-link class="nav-link mt-2" to="/">Home</router-link>
           </li>
         </ul>
       </div>

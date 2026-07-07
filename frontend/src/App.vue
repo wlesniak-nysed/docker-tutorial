@@ -17,9 +17,6 @@ import Header from './components/Header.vue';
 @import url("https://eservices.nysed.gov/nysed-assets/stylesheets/4.x/nysed-bootstrap.css");
 </style>
 <style scoped>
-header {
-  margin: 0 auto 10rem;
-}
 main {
   margin: 0 auto;
 }
