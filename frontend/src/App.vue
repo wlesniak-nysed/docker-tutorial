@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import Home from './views/Home.vue';
 import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 </script>
 
 <template>
-  <header>
-    <Header />
-  </header>
-
+  <Header />
   <main>
     <Home />
   </main>
+  <Footer />
 </template>
 
 <style>

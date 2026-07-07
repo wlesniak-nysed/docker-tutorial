@@ -17,6 +17,9 @@ onMounted(() => {
 async function getNames() {
   const response = await axios.get<Name[]>(`/api/items/all`);
   nameList.value = response.data;
+  // useful for testing page overflow
+  // const longList = Array.from({ length: 10 }, () => response.data).flat();
+  // nameList.value = longList;
 }
 
 async function addName() {

@@ -1,8 +1,13 @@
-
+html, body {
+  margin: 0;
+  height: 100%;
+}
 #app {
   margin: 0 auto;
   font-weight: normal;
   font-family: sans-serif;
   display: flex;
+  justify-content: space-between;
   flex-flow: column wrap;
+  min-height: 100vh;
 }
