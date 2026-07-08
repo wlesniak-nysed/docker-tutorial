@@ -30,6 +30,9 @@
               <router-link class="nav-link mt-2" to="/users">Users</router-link>
             </li>
             <li class="nav-item">
+              <router-link class="nav-link mt-2" to="/projects">Projects</router-link>
+            </li>
+            <li class="nav-item">
               <router-link class="nav-link mt-2" to="/project-memberships">Project Memberships</router-link>
             </li>
           </ul>

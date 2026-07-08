@@ -15,6 +15,7 @@ public interface ProjectMembershipRepository extends
       "m.project.id, " +
       "m.project.name, " +
       "m.role) " +
-      "FROM ProjectMembership m")
+      "FROM ProjectMembership m " +
+      "ORDER BY LOWER(m.user.name), LOWER(m.project.name) ASC")
   List<ProjectMembershipDto> findAllDto();
 }

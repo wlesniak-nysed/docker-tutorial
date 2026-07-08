@@ -23,7 +23,7 @@ async function getUsers() {
 }
 
 async function addUser() {
-  await axios.post(`/api/users/create`, { user: newUser.value }, {});
+  await axios.post(`/api/users/create`, { name: newUser.value }, {});
   newUser.value = '';
   await getUsers();
 }

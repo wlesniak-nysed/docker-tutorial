@@ -16,6 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
   @Query("SELECT new gov.nysed.dockertutorial.dto.UserDto(" +
       "m.id, " +
       "m.name) " +
-      "FROM User m")
+      "FROM User m " +
+      "ORDER BY LOWER(m.name) ASC")
   List<UserDto> findAllDto();
 }

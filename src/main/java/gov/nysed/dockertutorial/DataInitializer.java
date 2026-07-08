@@ -6,7 +6,7 @@ import gov.nysed.dockertutorial.model.User;
 import gov.nysed.dockertutorial.repository.ProjectMembershipRepository;
 import gov.nysed.dockertutorial.repository.ProjectRepository;
 import gov.nysed.dockertutorial.repository.UserRepository;
-import gov.nysed.dockertutorial.service.ProjectService;
+import gov.nysed.dockertutorial.service.ProjectMembershipService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +15,16 @@ public class DataInitializer implements CommandLineRunner {
 
   private final ProjectMembershipRepository projectMembershipRepository;
   private final ProjectRepository projectRepository;
-  private final ProjectService projectService;
   private final UserRepository userRepository;
+  private final ProjectMembershipService projectMembershipService;
 
   public DataInitializer(ProjectMembershipRepository projectMembershipRepository,
-      ProjectRepository projectRepository, ProjectService projectService, UserRepository userRepository) {
+      ProjectRepository projectRepository, UserRepository userRepository,
+      ProjectMembershipService projectMembershipService) {
     this.projectMembershipRepository = projectMembershipRepository;
     this.projectRepository = projectRepository;
-    this.projectService = projectService;
     this.userRepository = userRepository;
+    this.projectMembershipService = projectMembershipService;
   }
 
   @Override
@@ -68,10 +69,10 @@ public class DataInitializer implements CommandLineRunner {
       System.out.println("Projects seeded");
     }
     if (projectMembershipRepository.count() == 0) {
-      projectService.assignUserToProject("Michael Panzer", "Fire Code Planning", ProjectRole.ADMIN);
-      projectService.assignUserToProject("Stefanie Husak", "Exam Request System", ProjectRole.ADMIN);
-      projectService.assignUserToProject("William Lesniak", "Exam Request System", ProjectRole.DEVELOPER);
-      projectService.assignUserToProject("William Lesniak", "Fire Code Planning", ProjectRole.DEVELOPER);
+      projectMembershipService.assignUserToProject("Michael Panzer", "Fire Code Planning", ProjectRole.ADMIN);
+      projectMembershipService.assignUserToProject("Stefanie Husak", "Exam Request System", ProjectRole.ADMIN);
+      projectMembershipService.assignUserToProject("William Lesniak", "Exam Request System", ProjectRole.DEVELOPER);
+      projectMembershipService.assignUserToProject("William Lesniak", "Fire Code Planning", ProjectRole.DEVELOPER);
       System.out.println("ProjectMembership seeded");
     }
 
