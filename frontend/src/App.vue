@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Home from './views/Home.vue';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 </script>
@@ -7,7 +6,7 @@ import Footer from './components/Footer.vue';
 <template>
   <Header />
   <main>
-    <Home />
+    <router-view />
   </main>
   <Footer />
 </template>

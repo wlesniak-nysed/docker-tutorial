@@ -1,5 +1,6 @@
 package gov.nysed.dockertutorial.service;
 
+import gov.nysed.dockertutorial.dto.UserDto;
 import gov.nysed.dockertutorial.model.User;
 import gov.nysed.dockertutorial.repository.UserRepository;
 import java.util.List;
@@ -21,8 +22,7 @@ public class UserService {
   }
 
   public List<UserDto> getAllUsers() {
-    return userRepository.findAll().stream().map(user -> new UserDto(user.getId(), user.getName()))
-                         .collect(Collectors.toList());
+    return userRepository.findAllDto();
   }
 
   @Transactional

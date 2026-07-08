@@ -48,13 +48,13 @@ tasks.register('copyVueToSpring', Copy) {
     into "src/main/resources/static"
 }
 
-tasks.register('writeVersionFile') {
-    outputs.file('frontend/.env')
-    doLast {
-        project.file('frontend/.env') << "VITE_APP_VERSION=${project.version}\nVITE_basecontext_dockertutorial=dockertutorial\n"
-    }
-}
+//tasks.register('writeVersionFile') {
+//    outputs.file('frontend/.env')
+//    doLast {
+//        project.file('frontend/.env') << "VITE_APP_VERSION=${project.version}\nVITE_basecontext_dockertutorial=dockertutorial\n"
+//    }
+//}
 
 // Standard hook to include these in the main build lifecycle
-processResources.dependsOn writeVersionFile
+// processResources.dependsOn writeVersionFile
 processResources.dependsOn copyVueToSpring
