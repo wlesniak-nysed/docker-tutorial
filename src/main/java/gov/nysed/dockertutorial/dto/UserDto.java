@@ -1,18 +1,18 @@
 package gov.nysed.dockertutorial.dto;
 
-public class ItemDto {
+public class UserDto {
 
   Long id;
   String name;
 
-  public ItemDto(Long id, String name) {
+  public UserDto(Long id, String name) {
     this.id = id;
     this.name = name;
   }
-  public ItemDto(String name) {
+  public UserDto(String name) {
     this.name = name;
   }
-  public ItemDto() { }
+  public UserDto() { }
 
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }

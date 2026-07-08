@@ -1,8 +1,8 @@
 package gov.nysed.dockertutorial.controller;
 
-import gov.nysed.dockertutorial.dto.ItemDto;
-import gov.nysed.dockertutorial.model.Item;
-import gov.nysed.dockertutorial.service.ItemService;
+import gov.nysed.dockertutorial.dto.UserDto;
+import gov.nysed.dockertutorial.model.User;
+import gov.nysed.dockertutorial.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/items")
-public class ItemController {
+@RequestMapping(value = "/api/users")
+public class UserController {
 
-  private final ItemService itemService;
+  private final UserService userService;
 
   @Autowired
-  public ItemController(ItemService itemService) {
-    this.itemService = itemService;
+  public UserController(UserService userService) {
+    this.userService = userService;
   }
 
   @GetMapping("/hello")
@@ -29,23 +29,23 @@ public class ItemController {
     return "Hello World";
   }
 
-  // GET endpoint: Retrieves all saved items
+  // GET endpoint: Retrieves all saved users
   @GetMapping("/all")
-  public List<ItemDto> getAllItems() {
-    return itemService.getAllItems();
+  public List<UserDto> getAllUsers() {
+    return userService.getAllUsers();
   }
 
   // POST endpoint: Saves data to H2 database
   @PostMapping("/create")
-  public ItemDto createItem(@RequestBody ItemDto itemDto) {
-    Item newItem = itemService.createItem(itemDto);
-    return new ItemDto(newItem.getId(), newItem.getName());
+  public UserDto createUser(@RequestBody UserDto userDto) {
+    User newUser = userService.createUser(userDto);
+    return new UserDto(newUser.getId(), newUser.getName());
   }
 
   // DELETE endpoint: deletes data from H2 database
   @DeleteMapping("/delete")
-  public ResponseEntity<Object> deleteItem(@RequestBody ItemDto itemDto) {
-    return itemService.deleteItem(itemDto);
+  public ResponseEntity<Object> deleteUser(@RequestBody UserDto userDto) {
+    return userService.deleteUser(userDto);
   }
 
 }

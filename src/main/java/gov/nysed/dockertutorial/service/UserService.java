@@ -1,8 +1,7 @@
 package gov.nysed.dockertutorial.service;
 
-import gov.nysed.dockertutorial.dto.ItemDto;
-import gov.nysed.dockertutorial.model.Item;
-import gov.nysed.dockertutorial.repository.ItemRepository;
+import gov.nysed.dockertutorial.model.User;
+import gov.nysed.dockertutorial.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +11,32 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ItemService {
+public class UserService {
 
-  ItemRepository itemRepository;
+  UserRepository userRepository;
 
   @Autowired
-  public ItemService(ItemRepository itemRepository) {
-    this.itemRepository = itemRepository;
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
   }
 
-  public List<ItemDto> getAllItems() {
-    return itemRepository.findAll().stream().map(item -> new ItemDto(item.getId(), item.getName()))
+  public List<UserDto> getAllUsers() {
+    return userRepository.findAll().stream().map(user -> new UserDto(user.getId(), user.getName()))
                          .collect(Collectors.toList());
   }
 
   @Transactional
-  public Item createItem(ItemDto itemDto) {
-    Item item = new Item(itemDto.getName());
-    return itemRepository.save(item);
+  public User createUser(UserDto userDto) {
+    User user = new User(userDto.getName());
+    return userRepository.save(user);
   }
 
   @Transactional
-  public ResponseEntity<Object> deleteItem(ItemDto itemDto) {
+  public ResponseEntity<Object> deleteUser(UserDto userDto) {
     // deleteById doesn't return a count when the entity is not found, but it will throw an
     // exception; so catch it and return an appropriate response
     try {
-      itemRepository.deleteById(itemDto.getId());
+      userRepository.deleteById(userDto.getId());
       return ResponseEntity.ok().build();
     } catch (EmptyResultDataAccessException e) {
       return ResponseEntity.notFound().build();

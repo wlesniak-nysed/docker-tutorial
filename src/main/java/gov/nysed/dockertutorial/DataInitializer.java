@@ -1,49 +1,79 @@
 package gov.nysed.dockertutorial;
 
-import gov.nysed.dockertutorial.model.Item;
-import gov.nysed.dockertutorial.repository.ItemRepository;
+import gov.nysed.dockertutorial.enums.ProjectRole;
+import gov.nysed.dockertutorial.model.Project;
+import gov.nysed.dockertutorial.model.User;
+import gov.nysed.dockertutorial.repository.ProjectMembershipRepository;
+import gov.nysed.dockertutorial.repository.ProjectRepository;
+import gov.nysed.dockertutorial.repository.UserRepository;
+import gov.nysed.dockertutorial.service.ProjectService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-  private final ItemRepository itemRepository;
+  private final ProjectMembershipRepository projectMembershipRepository;
+  private final ProjectRepository projectRepository;
+  private final ProjectService projectService;
+  private final UserRepository userRepository;
 
-  public DataInitializer(ItemRepository itemRepository) {
-    this.itemRepository = itemRepository;
+  public DataInitializer(ProjectMembershipRepository projectMembershipRepository,
+      ProjectRepository projectRepository, ProjectService projectService, UserRepository userRepository) {
+    this.projectMembershipRepository = projectMembershipRepository;
+    this.projectRepository = projectRepository;
+    this.projectService = projectService;
+    this.userRepository = userRepository;
   }
 
   @Override
   public void run(String... args) throws Exception {
-    if (itemRepository.count() == 0) {
-      itemRepository.save(new Item("Alice Avery"));
-      itemRepository.save(new Item("Bill Billingsworth"));
-      itemRepository.save(new Item("Charlie Chaplin"));
-      itemRepository.save(new Item("David Davidson"));
-      itemRepository.save(new Item("Emma Emerson"));
-      itemRepository.save(new Item("Frank Franklin"));
-      itemRepository.save(new Item("Grace Garrison"));
-      itemRepository.save(new Item("Henry Henderson"));
-      itemRepository.save(new Item("Ian Iverson"));
-      itemRepository.save(new Item("Jack Jackson"));
-      itemRepository.save(new Item("Kevin Kevinson"));
-      itemRepository.save(new Item("Liam Liamson"));
-      itemRepository.save(new Item("Michael Michaelson"));
-      itemRepository.save(new Item("Nathan Nathanson"));
-      itemRepository.save(new Item("Oliver Oliverson"));
-      itemRepository.save(new Item("Peter Peterson"));
-      itemRepository.save(new Item("Quincy Quincyson"));
-      itemRepository.save(new Item("Robert Robertson"));
-      itemRepository.save(new Item("Samuel Samuelson"));
-      itemRepository.save(new Item("Thomas Thomason"));
-      itemRepository.save(new Item("Upton Uptonon"));
-      itemRepository.save(new Item("Victor Victorson"));
-      itemRepository.save(new Item("William Williamson"));
-      itemRepository.save(new Item("Xavier Xavierson"));
-      itemRepository.save(new Item("Yusuf Yusufson"));
-      itemRepository.save(new Item("Zachary Zacharison"));
-      System.out.println("H2 Database seeded successfully!");
+    if (userRepository.count() == 0) {
+      userRepository.save(new User("Alice Avery"));
+      userRepository.save(new User("Bill Billingsworth"));
+      userRepository.save(new User("Charlie Chaplin"));
+      userRepository.save(new User("David Davidson"));
+      userRepository.save(new User("Emma Emerson"));
+      userRepository.save(new User("Frank Franklin"));
+      userRepository.save(new User("Grace Garrison"));
+      userRepository.save(new User("Henry Henderson"));
+      userRepository.save(new User("Ian Iverson"));
+      userRepository.save(new User("Jack Jackson"));
+      userRepository.save(new User("Kevin Kevinson"));
+      userRepository.save(new User("Liam Liamson"));
+      userRepository.save(new User("Michael Michaelson"));
+      userRepository.save(new User("Nathan Nathanson"));
+      userRepository.save(new User("Oliver Oliverson"));
+      userRepository.save(new User("Peter Peterson"));
+      userRepository.save(new User("Quincy Quincyson"));
+      userRepository.save(new User("Robert Robertson"));
+      userRepository.save(new User("Samuel Samuelson"));
+      userRepository.save(new User("Thomas Thomason"));
+      userRepository.save(new User("Upton Uptonon"));
+      userRepository.save(new User("Victor Victorson"));
+      userRepository.save(new User("William Williamson"));
+      userRepository.save(new User("Xavier Xavierson"));
+      userRepository.save(new User("Yusuf Yusufson"));
+      userRepository.save(new User("Zachary Zacharison"));
+      userRepository.save(new User("Michael Panzer"));
+      userRepository.save(new User("Stefanie Husak"));
+      userRepository.save(new User("William Lesniak"));
+      System.out.println("Users seeded");
     }
+    if (projectRepository.count() == 0) {
+      projectRepository.save(new Project("Exam Request System"));
+      projectRepository.save(new Project("Shipping Notice Generator"));
+      projectRepository.save(new Project("Library Development Grants"));
+      projectRepository.save(new Project("Fire Code Planning"));
+      System.out.println("Projects seeded");
+    }
+    if (projectMembershipRepository.count() == 0) {
+      projectService.assignUserToProject("Michael Panzer", "Fire Code Planning", ProjectRole.ADMIN);
+      projectService.assignUserToProject("Stefanie Husak", "Exam Request System", ProjectRole.ADMIN);
+      projectService.assignUserToProject("William Lesniak", "Exam Request System", ProjectRole.DEVELOPER);
+      projectService.assignUserToProject("William Lesniak", "Fire Code Planning", ProjectRole.DEVELOPER);
+      System.out.println("ProjectMembership seeded");
+    }
+
   }
 }
