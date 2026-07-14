@@ -11,8 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "project_memberships")
 public class ProjectMembership {
 
@@ -32,9 +38,6 @@ public class ProjectMembership {
   @Enumerated(EnumType.STRING)
   @Column(name = "role")
   private ProjectRole role; // E.g., ADMIN, VIEWER, DEVELOPER
-
-  // Constructor, Getters, and Setters
-  public ProjectMembership() {}
 
   public ProjectMembership(User user, Project project, ProjectRole role) {
     this.user = user;

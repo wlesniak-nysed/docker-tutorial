@@ -11,12 +11,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-  long deleteByName(String name);
-  Optional<User> findByName(String name);
+  Optional<User> findByUserName(String name);
   @Query("SELECT new gov.nysed.dockertutorial.dto.UserDto(" +
       "m.id, " +
-      "m.name) " +
+      "m.userName, " +
+      "m.firstName, " +
+      "m.lastName) " +
       "FROM User m " +
-      "ORDER BY LOWER(m.name) ASC")
+      "ORDER BY LOWER(m.userName) ASC")
   List<UserDto> findAllDto();
 }

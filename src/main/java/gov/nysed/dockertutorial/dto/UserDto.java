@@ -1,19 +1,15 @@
 package gov.nysed.dockertutorial.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Value;
+
+@Value
+@AllArgsConstructor
 public class UserDto {
 
   Long id;
-  String name;
+  String userName;
+  String firstName;
+  String lastName;
 
-  public UserDto(Long id, String name) {
-    this.id = id;
-    this.name = name;
-  }
-  public UserDto(String name) {
-    this.name = name;
-  }
-  public UserDto() { }
-
-  public Long getId() { return id; }
-  public String getName() { return name; }
 }

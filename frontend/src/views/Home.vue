@@ -2,7 +2,7 @@
 </script>
 <template>
   <div class="main">
-    Vilkommen and bienvenue, welcome to docker tu(torial)
+    This is the home page
   </div>
 </template>
 <style scoped>

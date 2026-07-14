@@ -7,7 +7,9 @@ const userList = ref<User[]>([]);
 
 interface User {
   id: number;
-  name: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
 }
 
 onMounted(() => {
@@ -35,21 +37,53 @@ async function deleteUser(user : User) {
 
 </script>
 <template>
-  <div class="main">
-    <div style="padding-top: 2rem;">
-      <label for="addItem">Add User: </label>
-      <input v-model="newUser" type="text" @keyup.enter="addUser"  />
-      <button type="button" @click="addUser">+</button>
-    </div>
-    <div>
-      <ul>
-        <li v-for="user in userList" :key="user.id">
-          <p style="display: inline-block">{{ user.name }}</p>
-          <button style="float: right" type="button" @click="deleteUser(user)">X</button>
-        </li>
-      </ul>
+  <div class="container-fluid col-md-9">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <strong>Users</strong>
+      </div>
+      <div id="userContent" class="m-4">
+        <div>
+          <label for="addItem">Add User: </label>
+          <input v-model="newUser" type="text" @keyup.enter="addUser"  />
+          <button type="button" @click="addUser">+</button>
+        </div>
+        <div>
+          <table>
+            <thead>
+            <tr>
+              <th>User ID</th>
+              <th>User Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Delete User</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="user in userList" :key="user.id">
+              <td>{{ user.id }}</td>
+              <td>{{ user.userName }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td style="text-align: center;"><button type="button" @click="deleteUser(user)">X</button></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <style scoped>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding-right: 1rem;
+}
+#userContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
 </style>

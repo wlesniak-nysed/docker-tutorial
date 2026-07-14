@@ -35,19 +35,24 @@ async function deleteProject(project : Project) {
 
 </script>
 <template>
-  <div class="main">
-    <div style="padding-top: 2rem;">
-      <label for="addItem">Add Project: </label>
-      <input v-model="newProject" type="text" @keyup.enter="addProject"  />
-      <button type="button" @click="addProject">+</button>
-    </div>
-    <div>
-      <ul>
-        <li v-for="project in projectList" :key="project.id">
-          <p style="display: inline-block">{{ project.name }}</p>
-          <button style="float: right" type="button" @click="deleteProject(project)">X</button>
-        </li>
-      </ul>
+  <div class="container-fluid col-md-9">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <strong>Users</strong>
+      </div>
+      <div class="m-4">
+        <label for="addItem">Add Project: </label>
+        <input v-model="newProject" type="text" @keyup.enter="addProject"  />
+        <button type="button" @click="addProject">+</button>
+      </div>
+      <div>
+        <ul>
+          <li v-for="project in projectList" :key="project.id">
+            <p style="display: inline-block">{{ project.name }}</p>
+            <button type="button" @click="deleteProject(project)">X</button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

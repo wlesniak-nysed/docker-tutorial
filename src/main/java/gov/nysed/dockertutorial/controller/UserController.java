@@ -39,7 +39,8 @@ public class UserController {
   @PostMapping("/create")
   public UserDto createUser(@RequestBody UserDto userDto) {
     User newUser = userService.createUser(userDto);
-    return new UserDto(newUser.getId(), newUser.getName());
+    return new UserDto(newUser.getId(), newUser.getUserName(), newUser.getFirstName(),
+                             newUser.getLastName());
   }
 
   // DELETE endpoint: deletes data from H2 database

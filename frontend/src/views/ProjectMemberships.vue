@@ -52,4 +52,9 @@ async function getProjectMemberships() {
   </div>
 </template>
 <style scoped>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding-right: 1rem;
+}
 </style>

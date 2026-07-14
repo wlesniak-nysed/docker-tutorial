@@ -11,11 +11,11 @@ public interface ProjectMembershipRepository extends
     JpaRepository<ProjectMembership, ProjectMembershipId> {
   @Query("SELECT new gov.nysed.dockertutorial.dto.ProjectMembershipDto(" +
       "m.user.id, " +
-      "m.user.name, " +
+      "m.user.userName, " +
       "m.project.id, " +
       "m.project.name, " +
       "m.role) " +
       "FROM ProjectMembership m " +
-      "ORDER BY LOWER(m.user.name), LOWER(m.project.name) ASC")
+      "ORDER BY LOWER(m.user.userName), LOWER(m.project.name) ASC")
   List<ProjectMembershipDto> findAllDto();
 }

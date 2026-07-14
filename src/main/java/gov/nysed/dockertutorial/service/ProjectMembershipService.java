@@ -36,7 +36,7 @@ public class ProjectMembershipService {
   @Transactional
   public void assignUserToProject(String userName, String projectName, ProjectRole role) {
     // Fetch and verify the User exists
-    User user = userRepository.findByName(userName)
+    User user = userRepository.findByUserName(userName)
                               .orElseThrow(() -> new EntityNotFoundException(
                                   "User not found with name: " + userName));
 

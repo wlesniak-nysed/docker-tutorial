@@ -5,9 +5,9 @@ import Footer from './components/Footer.vue';
 
 <template>
   <Header />
-  <main>
+  <div class="flex-grow-1 hero-content pt-5">
     <router-view />
-  </main>
+  </div>
   <Footer />
 </template>
 
