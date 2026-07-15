@@ -42,7 +42,7 @@ async function deleteProject(project : Project) {
       </div>
       <div class="m-4">
         <label for="addItem">Add Project: </label>
-        <input v-model="newProject" type="text" @keyup.enter="addProject"  />
+        <input v-model="newProject" type="text" @keyup.enter="addProject" />
         <button type="button" @click="addProject">+</button>
       </div>
       <div>

@@ -31,6 +31,8 @@ public class DataInitializer implements CommandLineRunner {
   public void run(String... args) throws Exception {
     if (userRepository.count() == 0) {
       userRepository.save(new User("aavery1","Alice","Avery"));
+      userRepository.save(new User("aavery2","Alison","Avery"));
+      userRepository.save(new User("aavery11","Alex","Avery"));
       userRepository.save(new User("bbillingswo1","Bill","Billingsworth"));
       userRepository.save(new User("cchaplin1","Charlie","Chaplin"));
       userRepository.save(new User("ddavidson1","David","Davidson"));

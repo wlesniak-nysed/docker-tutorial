@@ -2,8 +2,18 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
-const newUser = ref('');
+const createEmptyUser = () => ({
+  // we don't use this field until it has been saved, and the save operation returns its actual id
+  // setting it to -1 helps clarify it doesn't exist/hasn't been saved
+  id: -1,
+  userName: '',
+  firstName: '',
+  lastName: ''
+});
+
+const newUser = ref<User>(createEmptyUser());
 const userList = ref<User[]>([]);
+
 
 interface User {
   id: number;
@@ -25,8 +35,11 @@ async function getUsers() {
 }
 
 async function addUser() {
-  await axios.post(`/api/users/create`, { name: newUser.value }, {});
-  newUser.value = '';
+  // the user's first and last name will be given an appropriate number on the back end
+  // i.e. an existing "aavery1" will cause "aavery2" to be assigned
+  newUser.value.userName = newUser.value.firstName.substring(0, 1) + newUser.value.lastName.substring(0, 10)
+  await axios.post(`/api/users/create`, newUser.value);
+  newUser.value = createEmptyUser();
   await getUsers();
 }
 
@@ -44,8 +57,11 @@ async function deleteUser(user : User) {
       </div>
       <div id="userContent" class="m-4">
         <div>
-          <label for="addItem">Add User: </label>
-          <input v-model="newUser" type="text" @keyup.enter="addUser"  />
+          <p>Add User: </p>
+          <label for="firstName">First Name</label>
+          <input id="firstName" v-model="newUser.firstName" type="text" />
+          <label for="lastName">Last Name</label>
+          <input id="lastName" v-model="newUser.lastName" type="text" />
           <button type="button" @click="addUser">+</button>
         </div>
         <div>

@@ -22,13 +22,24 @@ public class UserService {
   }
 
   public List<UserDto> getAllUsers() {
-    return userRepository.findAllDto();
+    return userRepository.findAllOrderedNumericallyNative().stream()
+                         .map(p -> new UserDto(p.getId(), p.getUserName(), p.getFirstName(), p.getLastName()))
+                         .collect(Collectors.toList());
+  }
+
+  public String returnValidUserName(String userName) {
+    return userRepository.findHighestUserNumericByUsernamePrefix(userName)
+                         .map(projection -> {
+                           int nextNumber = projection.getUserNameSuffix() + 1;
+                           return userName + nextNumber;
+                         })
+                         // if it doesn't already exist; create the default "aavery1"
+                         .orElse(userName + "1");
   }
 
   @Transactional
-  public User createUser(UserDto userDto) {
-    User user = new User(userDto.getUserName(), userDto.getFirstName(),
-                         userDto.getLastName());
+  public User createUser(UserDto userDto, String userName) {
+    User user = new User(userName, userDto.getFirstName(), userDto.getLastName());
     return userRepository.save(user);
   }
 
