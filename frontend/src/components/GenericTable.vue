@@ -1,54 +1,44 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 
-// 1. Define Props with defaults using withDefaults
 const props = withDefaults(
     defineProps<{
       items: Record<string, any>[];
       onDelete?: (item: any) => void;
-      pageSize?: number; // Optional prop with a default value
+      pageSize?: number;
     }>(),
     {
-      pageSize: 5 // Default page size is set to 5 rows
+      pageSize: 5
     }
 );
 
-// 2. Pagination State
 const currentPage = ref(1);
 
-// Reset page to 1 if the underlying data items list changes length
-watch(() => props.items.length, () => {
-  currentPage.value = 1;
-});
-
-// 3. Compute Total Pages
+// compute total pages
 const totalPages = computed(() => {
   return Math.ceil(props.items.length / props.pageSize);
 });
 
-// 4. Slice Data for Current Page
+// slice data for current page
 const paginatedItems = computed(() => {
   const start = (currentPage.value - 1) * props.pageSize;
   const end = start + props.pageSize;
   return props.items.slice(start, end);
 });
 
-// Automatically generate column headers from object keys
+// return key names from table data items to be used as headers
 const headers = computed(() => {
   if (props.items.length === 0) return [];
   // shutup Vue this works
   return Object.keys(props.items[0]);
 });
 
-// Format header keys for better readability (e.g., "firstName" -> "First Name")
+// format header keys for better readability (e.g., "firstName" -> "First Name")
 const formatHeader = (header: string) => {
-  // Insert a space before any uppercase letter
   const spaced = header.replace(/([A-Z])/g, ' $1');
-  // Capitalize the first letter and trim extra spaces
   return (spaced.charAt(0).toUpperCase() + spaced.slice(1)).trim();
 };
 </script>
-
 <template>
   <div v-if="items.length > 0" class="table-container">
     <table>
@@ -61,7 +51,6 @@ const formatHeader = (header: string) => {
       </tr>
       </thead>
       <tbody>
-      <!-- Loop over paginatedItems instead of raw items -->
       <tr v-for="(item, index) in paginatedItems" :key="item.id || index">
         <td v-for="header in headers" :key="header">
           {{ item[header] }}
@@ -72,8 +61,6 @@ const formatHeader = (header: string) => {
       </tr>
       </tbody>
     </table>
-
-    <!-- Pagination Controls Navigation HTML -->
     <div class="pagination-controls" v-if="totalPages > 1">
       <button v-if="totalPages > 2" :disabled="currentPage === 1" @click="currentPage = 1">
         First

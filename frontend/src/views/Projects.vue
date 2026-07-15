@@ -5,6 +5,7 @@ import GenericTable from "@/components/GenericTable.vue";
 
 const newProject = ref('');
 const projectList = ref<Project[]>([]);
+const errorMessage = ref('');
 
 interface Project {
   id: number;
@@ -24,9 +25,14 @@ async function getProjects() {
 }
 
 async function addProject() {
-  await axios.post(`/api/projects/create`, { name: newProject.value }, {});
+  if (projectList.value.some((project) => project.name === newProject.value.trim())) {
+    errorMessage.value = "Cannot create a project with the same name as another project.";
+    setTimeout(() => { errorMessage.value = ""; }, 3000);
+  } else {
+    await axios.post(`/api/projects/create`, {name: newProject.value}, {});
+    await getProjects();
+  }
   newProject.value = '';
-  await getProjects();
 }
 
 async function deleteProject(project : Project) {
@@ -47,6 +53,9 @@ async function deleteProject(project : Project) {
           <input v-model="newProject" type="text" @keyup.enter="addProject" />
           <button type="button" @click="addProject">+</button>
         </div>
+        <div v-if="errorMessage" class="error">
+          <p>{{errorMessage}}</p>
+        </div>
         <div>
           <GenericTable :items="projectList" :on-delete="deleteProject" />
         </div>
@@ -59,5 +68,10 @@ async function deleteProject(project : Project) {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+</style>
+<style>
+.error p {
+  color: red;
 }
 </style>
