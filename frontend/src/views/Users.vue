@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
+import GenericTable from "@/components/GenericTable.vue";
 
 const createEmptyUser = () => ({
   // we don't use this field until it has been saved, and the save operation returns its actual id
@@ -65,41 +66,16 @@ async function deleteUser(user : User) {
           <button type="button" @click="addUser">+</button>
         </div>
         <div>
-          <table>
-            <thead>
-            <tr>
-              <th>User ID</th>
-              <th>User Name</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Delete User</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="user in userList" :key="user.id">
-              <td>{{ user.id }}</td>
-              <td>{{ user.userName }}</td>
-              <td>{{ user.firstName }}</td>
-              <td>{{ user.lastName }}</td>
-              <td style="text-align: center;"><button type="button" @click="deleteUser(user)">X</button></td>
-            </tr>
-            </tbody>
-          </table>
+          <GenericTable :items="userList" :on-delete="deleteUser" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding-right: 1rem;
-}
 #userContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 </style>

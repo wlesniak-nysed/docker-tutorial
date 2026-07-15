@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
+import GenericTable from "@/components/GenericTable.vue";
 
 const newProject = ref('');
 const projectList = ref<Project[]>([]);
@@ -38,23 +39,25 @@ async function deleteProject(project : Project) {
   <div class="container-fluid col-md-9">
     <div class="card">
       <div class="card-header bg-primary">
-        <strong>Users</strong>
+        <strong>Projects</strong>
       </div>
-      <div class="m-4">
-        <label for="addItem">Add Project: </label>
-        <input v-model="newProject" type="text" @keyup.enter="addProject" />
-        <button type="button" @click="addProject">+</button>
-      </div>
-      <div>
-        <ul>
-          <li v-for="project in projectList" :key="project.id">
-            <p style="display: inline-block">{{ project.name }}</p>
-            <button type="button" @click="deleteProject(project)">X</button>
-          </li>
-        </ul>
+      <div id="userContent" class="m-4">
+        <div>
+          <label for="addItem">Add Project: </label>
+          <input v-model="newProject" type="text" @keyup.enter="addProject" />
+          <button type="button" @click="addProject">+</button>
+        </div>
+        <div>
+          <GenericTable :items="projectList" :on-delete="deleteProject" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
+#userContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
