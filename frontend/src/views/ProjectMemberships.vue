@@ -2,16 +2,9 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import GenericTable from "@/components/GenericTable.vue";
+import type {ProjectMembership} from "@/interfaces.ts";
 
 const projectMembershipList = ref<ProjectMembership[]>([]);
-
-interface ProjectMembership {
-  userId: number;
-  userName: string;
-  projectId: number;
-  projectName: string;
-  role: string;  
-}
 
 onMounted(() => {
   getProjectMemberships();

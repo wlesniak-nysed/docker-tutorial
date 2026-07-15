@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import GenericTable from "@/components/GenericTable.vue";
+import type {User} from "@/interfaces.ts";
 
 const createEmptyUser = () => ({
   // we don't use this field until it has been saved, and the save operation returns its actual id
@@ -14,14 +15,6 @@ const createEmptyUser = () => ({
 
 const newUser = ref<User>(createEmptyUser());
 const userList = ref<User[]>([]);
-
-
-interface User {
-  id: number;
-  userName: string;
-  firstName: string;
-  lastName: string;
-}
 
 onMounted(() => {
   getUsers();

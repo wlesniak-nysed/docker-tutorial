@@ -2,15 +2,11 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import GenericTable from "@/components/GenericTable.vue";
+import type {Project} from "@/interfaces.ts";
 
 const newProject = ref('');
 const projectList = ref<Project[]>([]);
 const errorMessage = ref('');
-
-interface Project {
-  id: number;
-  name: string;
-}
 
 onMounted(() => {
   getProjects();
