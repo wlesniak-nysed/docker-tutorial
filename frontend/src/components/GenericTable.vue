@@ -47,7 +47,7 @@ const formatHeader = (header: string) => {
         <th v-for="header in headers" :key="header">
           {{ formatHeader(header) }}
         </th>
-        <th v-if="onDelete">Actions</th>
+        <th v-if="onDelete">Delete</th>
       </tr>
       </thead>
       <tbody>
@@ -56,7 +56,7 @@ const formatHeader = (header: string) => {
           {{ item[header] }}
         </td>
         <td v-if="onDelete" style="text-align: center;">
-          <button type="button" @click="onDelete(item)">x</button>
+          <button type="button" @click="onDelete(item)">X</button>
         </td>
       </tr>
       </tbody>

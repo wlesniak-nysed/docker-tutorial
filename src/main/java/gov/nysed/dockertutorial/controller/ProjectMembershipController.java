@@ -1,9 +1,12 @@
 package gov.nysed.dockertutorial.controller;
 
+import gov.nysed.dockertutorial.dto.ProjectMembershipAssignmentRequest;
 import gov.nysed.dockertutorial.dto.ProjectMembershipDto;
 import gov.nysed.dockertutorial.service.ProjectMembershipService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +25,13 @@ public class ProjectMembershipController {
     return projectMembershipService.findAllDto();
   }
 
+  @PostMapping("/create")
+  public void createProjectMembership(@RequestBody
+  ProjectMembershipAssignmentRequest projectMembershipAssignmentRequest) {
+    projectMembershipService.assignUserToProject(projectMembershipAssignmentRequest.getUserDto().getUserName(),
+                                                 projectMembershipAssignmentRequest.getProjectDto().getName(),
+                                                 projectMembershipAssignmentRequest.getProjectRole());
+  }
 
 
 

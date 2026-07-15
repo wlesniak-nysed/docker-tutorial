@@ -15,14 +15,14 @@ onMounted(() => {
 async function getProjects() {
   const response = await axios.get<Project[]>(`/api/projects/all`);
   projectList.value = response.data;
-  // useful for testing page overflow
-  // const longList = Array.from({ length: 10 }, () => response.data).flat();
-  // projectList.value = longList;
 }
 
 async function addProject() {
   if (projectList.value.some((project) => project.name === newProject.value.trim())) {
     errorMessage.value = "Cannot create a project with the same name as another project.";
+    setTimeout(() => { errorMessage.value = ""; }, 3000);
+  } else if (newProject.value.trim() === '') {
+    errorMessage.value = "Project name cannot be blank";
     setTimeout(() => { errorMessage.value = ""; }, 3000);
   } else {
     await axios.post(`/api/projects/create`, {name: newProject.value}, {});
@@ -35,7 +35,6 @@ async function deleteProject(project : Project) {
   await axios.delete(`/api/projects/delete`, { data: project });
   await getProjects();
 }
-
 </script>
 <template>
   <div class="container-fluid col-md-9">
@@ -64,10 +63,5 @@ async function deleteProject(project : Project) {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-</style>
-<style>
-.error p {
-  color: red;
 }
 </style>

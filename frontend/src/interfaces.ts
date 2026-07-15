@@ -1,3 +1,5 @@
+//this file is a misnomer; it's really for all types, but this is a sample project so eh
+
 export interface User {
   id: number;
   userName: string;
@@ -17,3 +19,15 @@ export interface ProjectMembership {
   projectName: string;
   role: string;
 }
+
+export enum ProjectRole {
+  ADMIN = 'ADMIN',
+  DEVELOPER = 'DEVELOPER',
+  VIEWER = 'VIEWER'
+}
+
+export const ProjectRoleLabels: Record<ProjectRole, string> = {
+  [ProjectRole.ADMIN]: 'Administrator',
+  [ProjectRole.DEVELOPER]: 'Developer',
+  [ProjectRole.VIEWER]: 'Viewer'
+};

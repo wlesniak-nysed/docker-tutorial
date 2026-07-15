@@ -6,12 +6,10 @@ import lombok.Value;
 
 @Value
 @AllArgsConstructor
-public class ProjectMembershipDto {
+public class ProjectMembershipAssignmentRequest {
 
-  Long userId;
-  String userName;
-  Long projectId;
-  String projectName;
-  ProjectRole role;
+  UserDto userDto;
+  ProjectDto projectDto;
+  ProjectRole projectRole;
 
 }

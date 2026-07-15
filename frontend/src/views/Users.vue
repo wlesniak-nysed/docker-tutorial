@@ -7,6 +7,7 @@ import type {User} from "@/interfaces.ts";
 const createEmptyUser = () => ({
   // we don't use this field until it has been saved, and the save operation returns its actual id
   // setting it to -1 helps clarify it doesn't exist/hasn't been saved
+  // in hindsight I could just use the or null logic I use elsewhere; maybe this isn't worth it...
   id: -1,
   userName: '',
   firstName: '',
@@ -15,6 +16,7 @@ const createEmptyUser = () => ({
 
 const newUser = ref<User>(createEmptyUser());
 const userList = ref<User[]>([]);
+const errorMessage = ref('');
 
 onMounted(() => {
   getUsers();
@@ -23,18 +25,23 @@ onMounted(() => {
 async function getUsers() {
   const response = await axios.get<User[]>(`/api/users/all`);
   userList.value = response.data;
-  // useful for testing page overflow
-  // const longList = Array.from({ length: 10 }, () => response.data).flat();
-  // userList.value = longList;
 }
 
 async function addUser() {
   // the user's first and last name will be given an appropriate number on the back end
   // i.e. an existing "aavery1" will cause "aavery2" to be assigned
-  newUser.value.userName = newUser.value.firstName.substring(0, 1) + newUser.value.lastName.substring(0, 10)
-  await axios.post(`/api/users/create`, newUser.value);
-  newUser.value = createEmptyUser();
-  await getUsers();
+  if (newUser.value.firstName.trim() === '') {
+    errorMessage.value = "First name must not be blank";
+    setTimeout(() => { errorMessage.value = ""; }, 3000);
+  } else if (newUser.value.lastName.trim() === '') {
+    errorMessage.value = "Last name must not be blank";
+    setTimeout(() => { errorMessage.value = ""; }, 3000);
+  } else {
+    newUser.value.userName = newUser.value.firstName.substring(0, 1) + newUser.value.lastName.substring(0, 10);
+    await axios.post(`/api/users/create`, newUser.value);
+    newUser.value = createEmptyUser();
+    await getUsers();
+  }
 }
 
 async function deleteUser(user : User) {
@@ -57,6 +64,9 @@ async function deleteUser(user : User) {
           <label for="lastName">Last Name</label>
           <input id="lastName" v-model="newUser.lastName" type="text" />
           <button type="button" @click="addUser">+</button>
+        </div>
+        <div v-if="errorMessage" class="error">
+          <p>{{errorMessage}}</p>
         </div>
         <div>
           <GenericTable :items="userList" :on-delete="deleteUser" />
