@@ -5,13 +5,14 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
+  base: '/docker-tutorial',
   plugins: [
     vue(),
     vueDevTools(),
   ],
   server: {
     proxy: {
-      '/api': {
+      '/docker-tutorial/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
       }

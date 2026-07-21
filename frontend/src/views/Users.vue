@@ -23,7 +23,7 @@ onMounted(() => {
 });
 
 async function getUsers() {
-  const response = await axios.get<User[]>(`/api/users/all`);
+  const response = await axios.get<User[]>(`api/users/all`);
   userList.value = response.data;
 }
 
@@ -38,14 +38,14 @@ async function addUser() {
     setTimeout(() => { errorMessage.value = ""; }, 3000);
   } else {
     newUser.value.userName = newUser.value.firstName.substring(0, 1) + newUser.value.lastName.substring(0, 10);
-    await axios.post(`/api/users/create`, newUser.value);
+    await axios.post(`api/users/create`, newUser.value);
     newUser.value = createEmptyUser();
     await getUsers();
   }
 }
 
 async function deleteUser(user : User) {
-  await axios.delete(`/api/users/delete`, { data: user });
+  await axios.delete(`api/users/delete`, { data: user });
   await getUsers();
 }
 

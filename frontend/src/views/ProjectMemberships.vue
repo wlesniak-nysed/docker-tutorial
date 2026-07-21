@@ -21,17 +21,17 @@ onMounted(() => {
 
 
 async function getUsers() {
-  const response = await axios.get<User[]>(`/api/users/all`);
+  const response = await axios.get<User[]>(`api/users/all`);
   userList.value = response.data;
 }
 
 async function getProjects() {
-  const response = await axios.get<Project[]>(`/api/projects/all`);
+  const response = await axios.get<Project[]>(`api/projects/all`);
   projectList.value = response.data;
 }
 
 async function getProjectMemberships() {
-  const response = await axios.get<ProjectMembership[]>(`/api/project-membership/all`);
+  const response = await axios.get<ProjectMembership[]>(`api/project-membership/all`);
   projectMembershipList.value = response.data;
 }
 
@@ -46,7 +46,7 @@ async function assignProjectMembership() {
     errorMessage.value = "Select a role to assign";
     setTimeout(() => { errorMessage.value = ""; }, 3000);
   } else {
-    await axios.post(`/api/project-membership/create`, {
+    await axios.post(`api/project-membership/create`, {
       userDto: selectedUser.value,
       projectDto: selectedProject.value,
       projectRole: selectedRole.value

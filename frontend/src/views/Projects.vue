@@ -13,7 +13,7 @@ onMounted(() => {
 });
 
 async function getProjects() {
-  const response = await axios.get<Project[]>(`/api/projects/all`);
+  const response = await axios.get<Project[]>(`api/projects/all`);
   projectList.value = response.data;
 }
 
@@ -25,14 +25,14 @@ async function addProject() {
     errorMessage.value = "Project name cannot be blank";
     setTimeout(() => { errorMessage.value = ""; }, 3000);
   } else {
-    await axios.post(`/api/projects/create`, {name: newProject.value}, {});
+    await axios.post(`api/projects/create`, {name: newProject.value}, {});
     await getProjects();
   }
   newProject.value = '';
 }
 
 async function deleteProject(project : Project) {
-  await axios.delete(`/api/projects/delete`, { data: project });
+  await axios.delete(`api/projects/delete`, { data: project });
   await getProjects();
 }
 </script>
