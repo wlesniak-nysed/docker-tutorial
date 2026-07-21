@@ -58,6 +58,11 @@ async function assignProjectMembership() {
   }
 }
 
+async function deleteProjectMembership(projectMembership : ProjectMembership) {
+  await axios.delete(`api/project-membership/delete`, { data: projectMembership });
+  await getProjectMemberships();
+}
+
 </script>
 <template>
   <div class="container-fluid col-md-9">
@@ -109,7 +114,7 @@ async function assignProjectMembership() {
         </div>
         <br />
         <div>
-          <GenericTable :items="projectMembershipList" />
+          <GenericTable :items="projectMembershipList" :on-delete="deleteProjectMembership" />
         </div>
       </div>
     </div>
