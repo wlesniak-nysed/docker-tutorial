@@ -20,6 +20,16 @@ export interface ProjectMembership {
   role: string;
 }
 
+export interface Task {
+  id: number;
+  title: string;
+  description: string;
+  projectId: number;
+  projectName: string;
+  parentTaskId: number;
+  subTasks: Task[];
+}
+
 export enum ProjectRole {
   ADMIN = 'ADMIN',
   DEVELOPER = 'DEVELOPER',

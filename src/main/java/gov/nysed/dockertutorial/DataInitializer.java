@@ -2,9 +2,11 @@ package gov.nysed.dockertutorial;
 
 import gov.nysed.dockertutorial.enums.ProjectRole;
 import gov.nysed.dockertutorial.model.Project;
+import gov.nysed.dockertutorial.model.Task;
 import gov.nysed.dockertutorial.model.User;
 import gov.nysed.dockertutorial.repository.ProjectMembershipRepository;
 import gov.nysed.dockertutorial.repository.ProjectRepository;
+import gov.nysed.dockertutorial.repository.TaskRepository;
 import gov.nysed.dockertutorial.repository.UserRepository;
 import gov.nysed.dockertutorial.service.ProjectMembershipService;
 import org.springframework.boot.CommandLineRunner;
@@ -13,22 +15,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-  private final ProjectMembershipRepository projectMembershipRepository;
-  private final ProjectRepository projectRepository;
   private final UserRepository userRepository;
+  private final ProjectRepository projectRepository;
   private final ProjectMembershipService projectMembershipService;
+  private final ProjectMembershipRepository projectMembershipRepository;
+  private final TaskRepository taskRepository;
 
-  public DataInitializer(ProjectMembershipRepository projectMembershipRepository,
-      ProjectRepository projectRepository, UserRepository userRepository,
-      ProjectMembershipService projectMembershipService) {
-    this.projectMembershipRepository = projectMembershipRepository;
-    this.projectRepository = projectRepository;
+  public DataInitializer(UserRepository userRepository, ProjectRepository projectRepository,
+      ProjectMembershipService projectMembershipService,
+      ProjectMembershipRepository projectMembershipRepository, TaskRepository taskRepository) {
     this.userRepository = userRepository;
+    this.projectRepository = projectRepository;
     this.projectMembershipService = projectMembershipService;
+    this.projectMembershipRepository = projectMembershipRepository;
+    this.taskRepository = taskRepository;
   }
 
   @Override
   public void run(String... args) throws Exception {
+    Project project1 = null;
+    Project project2 = null;
     if (userRepository.count() == 0) {
       userRepository.save(new User("aavery1","Anna", "Avery"));
       userRepository.save(new User("aavery2","Annaka","Avery"));
@@ -64,10 +70,10 @@ public class DataInitializer implements CommandLineRunner {
       System.out.println("Users seeded");
     }
     if (projectRepository.count() == 0) {
-      projectRepository.save(new Project("Exam Request System"));
+      project1 = projectRepository.save(new Project("Exam Request System"));
       projectRepository.save(new Project("Shipping Notice Generator"));
       projectRepository.save(new Project("Library Development Grants"));
-      projectRepository.save(new Project("Fire Code Planning"));
+      project2 = projectRepository.save(new Project("Fire Code Planning"));
       System.out.println("Projects seeded");
     }
     if (projectMembershipRepository.count() == 0) {
@@ -76,6 +82,23 @@ public class DataInitializer implements CommandLineRunner {
       projectMembershipService.assignUserToProject("wlesniak1", "Exam Request System", ProjectRole.DEVELOPER);
       projectMembershipService.assignUserToProject("wlesniak1", "Fire Code Planning", ProjectRole.DEVELOPER);
       System.out.println("ProjectMembership seeded");
+    }
+    if (taskRepository.count() == 0) {
+      Task parentTask = null;
+      Task childTask = null;
+      if (project1 != null) {
+        parentTask = taskRepository.save(new Task("Initialize Database", "Set up PostgreSQL for this project", project1));
+        childTask = taskRepository.save(new Task("Install PostgreSQL", "On your PC", project1));
+        parentTask.addSubTask(childTask);
+        childTask = taskRepository.save(new Task("Write create table scripts", "Include Users/Projects/Tasks", project1));
+        parentTask.addSubTask(childTask);
+        taskRepository.save(parentTask);
+        System.out.println("Project1 Tasks seeded");
+      }
+      if (project2 != null) {
+        taskRepository.save(new Task("Set up Vue Front end", "Follow NYSED Bootstrap and accessibility standards", project2));
+        System.out.println("Project2 Tasks seeded");
+      }
     }
 
   }

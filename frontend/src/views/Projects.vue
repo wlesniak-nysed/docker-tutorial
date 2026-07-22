@@ -59,9 +59,4 @@ async function deleteProject(project : Project) {
   </div>
 </template>
 <style scoped>
-#userContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 </style>

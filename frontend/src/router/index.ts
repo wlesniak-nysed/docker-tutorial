@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 import Users from "@/views/Users.vue";
 import Projects from "@/views/Projects.vue";
 import ProjectMemberships from "@/views/ProjectMemberships.vue";
+import Tasks from "@/views/Tasks.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/project-memberships',
       name: 'ProjectMemberships',
       component: ProjectMemberships,
+    },
+    {
+      path: '/tasks',
+      name: 'Tasks',
+      component: Tasks,
     }
   ]
 });

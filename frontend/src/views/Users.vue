@@ -7,7 +7,6 @@ import type {User} from "@/interfaces.ts";
 const createEmptyUser = () => ({
   // we don't use this field until it has been saved, and the save operation returns its actual id
   // setting it to -1 helps clarify it doesn't exist/hasn't been saved
-  // in hindsight I could just use the or null logic I use elsewhere; maybe this isn't worth it...
   id: -1,
   userName: '',
   firstName: '',
@@ -31,11 +30,11 @@ async function addUser() {
   // the user's first and last name will be given an appropriate number on the back end
   // i.e. an existing "aavery1" will cause "aavery2" to be assigned
   if (newUser.value.firstName.trim() === '') {
-    errorMessage.value = "First name must not be blank";
-    setTimeout(() => { errorMessage.value = ""; }, 3000);
+    errorMessage.value = 'First name must not be blank';
+    setTimeout(() => { errorMessage.value = ''; }, 3000);
   } else if (newUser.value.lastName.trim() === '') {
-    errorMessage.value = "Last name must not be blank";
-    setTimeout(() => { errorMessage.value = ""; }, 3000);
+    errorMessage.value = 'Last name must not be blank';
+    setTimeout(() => { errorMessage.value = ''; }, 3000);
   } else {
     newUser.value.userName = newUser.value.firstName.substring(0, 1) + newUser.value.lastName.substring(0, 10);
     await axios.post(`api/users/create`, newUser.value);
@@ -76,9 +75,4 @@ async function deleteUser(user : User) {
   </div>
 </template>
 <style scoped>
-#userContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 </style>

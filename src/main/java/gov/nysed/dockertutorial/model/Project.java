@@ -36,4 +36,17 @@ public class Project {
     this.name = name;
   }
 
+  @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Task> tasks = new ArrayList<>();
+
+  // Helper methods to keep relationships in sync
+  public void addTask(Task task) {
+    tasks.add(task);
+    task.setProject(this);
+  }
+
+  public void removeTask(Task task) {
+    tasks.remove(task);
+    task.setProject(null);
+  }
 }

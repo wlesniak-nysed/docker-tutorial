@@ -71,7 +71,7 @@ async function deleteProjectMembership(projectMembership : ProjectMembership) {
         <strong>Projects</strong>
       </div>
       <div id="userContent" class="m-4">
-        <div class="dropdown-container">
+        <div class="simple-flex">
           <div>
             <label for="user-select">User:</label>
             <select id="user-select" v-model="selectedUser">
@@ -121,11 +121,6 @@ async function deleteProjectMembership(projectMembership : ProjectMembership) {
   </div>
 </template>
 <style scoped>
-#userContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .dropdown-container {
   width: 100%;
   display: flex;

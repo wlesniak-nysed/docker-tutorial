@@ -24,7 +24,6 @@ public class ProjectController {
     this.projectService = projectService;
   }
 
-
   @GetMapping("/all")
   public List<ProjectDto> getAllProjects() {
     return projectService.getAllProjects();
