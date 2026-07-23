@@ -11,3 +11,18 @@ html, body {
   flex-flow: column wrap;
   min-height: 100vh;
 }
+.error p {
+  color: red;
+}
+#userContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.simple-flex {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
