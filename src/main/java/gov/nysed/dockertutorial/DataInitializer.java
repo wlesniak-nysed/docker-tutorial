@@ -85,21 +85,17 @@ public class DataInitializer implements CommandLineRunner {
     }
     if (taskRepository.count() == 0) {
       Task parentTask = null;
-      Task childTask = null;
       if (project1 != null) {
         parentTask = taskRepository.save(new Task("Initialize Database", "Set up PostgreSQL for this project", project1));
-        childTask = taskRepository.save(new Task("Install PostgreSQL", "On your PC", project1));
-        parentTask.addSubTask(childTask);
-        childTask = taskRepository.save(new Task("Write create table scripts", "Include Users/Projects/Tasks", project1));
-        parentTask.addSubTask(childTask);
+        parentTask.addSubTask(new Task("Install PostgreSQL", "On your PC", project1));
+        parentTask.addSubTask(new Task("Write create table scripts", "Include Users/Projects/Tasks", project1));
         taskRepository.save(parentTask);
-        System.out.println("Project1 Tasks seeded");
+        System.out.println("Exam Request System Tasks seeded");
       }
       if (project2 != null) {
         taskRepository.save(new Task("Set up Vue Front end", "Follow NYSED Bootstrap and accessibility standards", project2));
-        System.out.println("Project2 Tasks seeded");
+        System.out.println("Fire Code Planning Tasks seeded");
       }
     }
-
   }
 }

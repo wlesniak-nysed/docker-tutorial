@@ -15,6 +15,7 @@ const createEmptyTask = () => ({
 });
 
 const taskList = ref<Task[]>([]);
+const rootTaskList = ref<Task[]>([]);
 const projectList = ref<Project[]>([]);
 const newTask = ref<Task>(createEmptyTask());
 const errorMessage = ref('');
@@ -32,6 +33,7 @@ const filteredTasks = computed(() => {
 onMounted(() => {
   getProjects();
   getTasks();
+  getRootTasks();
 });
 
 async function getProjects() {
@@ -42,6 +44,11 @@ async function getProjects() {
 async function getTasks() {
   const response = await axios.get<Task[]>(`api/tasks/all`);
   taskList.value = response.data;
+}
+
+async function getRootTasks() {
+  const response = await axios.get<Task[]>(`api/tasks/all-root`);
+  rootTaskList.value = response.data;
 }
 
 async function createTask() {
@@ -57,6 +64,7 @@ async function createTask() {
     newTask.value.parentTaskId = selectedTask.value?.id;
     await axios.post(`api/tasks/create`, newTask.value);
     await getTasks();
+    await getRootTasks();
     selectedProject.value = null;
     newTask.value = createEmptyTask();
   }
@@ -105,7 +113,7 @@ async function createTask() {
         </div>
         <div>
           <ul class="root-task-list">
-            <TaskItem v-for="task in taskList" :key="task.id" :task="task" />
+            <TaskItem v-for="task in rootTaskList" :key="task.id" :task="task" />
           </ul>
         </div>
       </div>

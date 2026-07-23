@@ -15,6 +15,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
   List<TaskDto> findAllRootTaskDtos();
   @Query("SELECT new gov.nysed.dockertutorial.dto.TaskDto(" +
       "t.id, t.title, t.description, t.project.id, t.project.name, t.parentTask.id) " +
+      "FROM Task t")
+  List<TaskDto> findAllTaskDtos();
+  @Query("SELECT new gov.nysed.dockertutorial.dto.TaskDto(" +
+      "t.id, t.title, t.description, t.project.id, t.project.name, t.parentTask.id) " +
       "FROM Task t WHERE t.project.id = :projectId AND t.parentTask IS NULL")
   List<TaskDto> findRootTaskDtosByProjectId(@Param("projectId") Long projectId);
 }

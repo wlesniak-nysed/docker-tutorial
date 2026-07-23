@@ -26,6 +26,11 @@ public class TaskController {
     return taskService.getAllTaskTrees();
   }
 
+  @GetMapping("/all-root")
+  public List<TaskDto> getAllRootTasks() {
+    return taskService.getAllRootTaskTrees();
+  }
+
   @PostMapping("/create")
   public TaskDto createTask(@RequestBody TaskDto taskDto) {
     return taskService.createTask(taskDto);

@@ -23,8 +23,16 @@ public class TaskService {
   }
 
   @Transactional(readOnly = true)
-  public List<TaskDto> getAllTaskTrees() {
+  public List<TaskDto> getAllRootTaskTrees() {
     List<TaskDto> rootDtos = taskRepository.findAllRootTaskDtos();
+    return rootDtos.stream()
+                   .map(this::hydrateSubTasks)
+                   .collect(Collectors.toList());
+  }
+
+  @Transactional(readOnly = true)
+  public List<TaskDto> getAllTaskTrees() {
+    List<TaskDto> rootDtos = taskRepository.findAllTaskDtos();
     return rootDtos.stream()
                    .map(this::hydrateSubTasks)
                    .collect(Collectors.toList());
@@ -70,6 +78,7 @@ public class TaskService {
     );
   }
 
+  @Transactional
   public TaskDto createTask(TaskDto taskDto) {
     Project project = projectRepository.findById(taskDto.getProjectId())
                                        .orElseThrow(() -> new RuntimeException("Project not found"));
