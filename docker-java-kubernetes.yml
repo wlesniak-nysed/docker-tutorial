@@ -18,6 +18,8 @@ spec:
           image: williamlesniak90162/docker-tutorial
           imagePullPolicy: Always
           env:
+            - name: SERVER_SERVLET_CONTEXT_PATH
+              value: "/docker-tutorial/"
             - name: SPRING_DATASOURCE_URL
               value: jdbc:h2:file:/data/tutorialdb
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
